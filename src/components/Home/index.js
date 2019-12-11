@@ -6,7 +6,7 @@ import Warehouse from './Warehouse';
 
 function Home() {  
     // Change role here for testing
-    const [role, setRole] = useState('importer');
+    const [role, setRole] = useState('exporter');
 
     return (
         <Fragment>

@@ -1,42 +1,54 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { MDBDataTable } from 'mdbreact';
 
-const DataTable = () => {
+const DataTable = (props) => {
   const data = {
     columns: [
       {
-        label: 'Name',
-        field: 'name',
+        label: 'Importer',
+        field: 'importer_name',
         sort: 'asc',
         width: 150
       },
       {
-        label: 'Position',
-        field: 'position',
+        label: 'Product',
+        field: 'product_name',
         sort: 'asc',
         width: 270
       },
       {
-        label: 'Office',
-        field: 'office',
+        label: 'Amount',
+        field: 'product_amount',
         sort: 'asc',
         width: 200
       },
       {
-        label: 'Age',
-        field: 'age',
+        label: 'Price',
+        field: 'product_price',
         sort: 'asc',
         width: 100
       },
       {
-        label: 'Start date',
-        field: 'date',
+        label: 'Create at',
+        field: 'create_at',
         sort: 'asc',
         width: 150
       },
       {
-        label: 'Salary',
-        field: 'salary',
+        label: 'Type',
+        field: 'type',
+        sort: 'asc',
+        width: 100
+      },
+      {
+        label: 'Exporter',
+        field: 'exporter_name',
+        sort: 'asc',
+        width: 100
+      },
+      {
+        label: 'Update at',
+        field: 'update_at',
         sort: 'asc',
         width: 100
       }
@@ -500,6 +512,22 @@ const DataTable = () => {
       }
     ]
   };
+
+  useEffect(() => {
+    data.rows = props.data.map((p) => {
+      return {
+        importer_name : p.importer_name,
+        product_name : p.product_name,
+        product_amount : p.product_amount,
+        product_price: p.product_price,
+        create_at: p.create_at,
+        type: p.type,
+        exporter_name: p.exporter_name,
+        update_at: p.update_at
+      }
+    })
+    
+  })
 
   return (
     <MDBDataTable
