@@ -1,19 +1,20 @@
 import React, { useState, Fragment } from 'react';
+import { loadRole } from '../../utils/localStorage';
 import Header from './Header';
 import Importer from './Importer';
 import Exporter from './Exporter';
 import Warehouse from './Warehouse';
 
-function Home() {  
+function Home() {
     // Change role here for testing
-    const [role, setRole] = useState('importer');
+    const [role, setRole] = useState(loadRole());
 
     return (
         <Fragment>
             <Header />
-            { role === 'importer' && <Importer />}
-            { role === 'exporter' && <Exporter /> }
-            { role === 'warehouse' && <Warehouse /> }
+            { role === 'IMPORTER' && <Importer />}
+            { role === 'EXPORTER' && <Exporter /> }
+            { role === 'WAREHOUSE' && <Warehouse /> }
         </Fragment>
     );
 }

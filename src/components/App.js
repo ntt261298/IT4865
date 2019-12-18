@@ -9,7 +9,7 @@ import { loadToken } from '../utils/localStorage';
 export class App extends React.Component {
   state = {
     loggedIn: loadToken()
-  }
+  };
 
   render() {
     return (
@@ -18,8 +18,8 @@ export class App extends React.Component {
           <Switch>
             <Route path='/login' exact component={Login} />
             {/* Just for testing UI */}
-            <Route path='/home' exact component={Home} />
-            {/* <Route path='/home' exact render={() => (!this.props.loggedIn ? <Redirect to='/login' /> : <Home />)} /> */}
+            {/*<Route path='/home' exact component={Home} />*/}
+             <Route path='/home' exact render={() => (!this.state.loggedIn ? <Redirect to='/login' /> : <Home />)} />
             <Redirect to='/home' />
           </Switch>
         </div>
