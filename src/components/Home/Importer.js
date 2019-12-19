@@ -130,7 +130,6 @@ function Importer() {
             <CreateImportModal 
                 show={show}
                 handleClose={() => setShow(false)}
-                handleSave={() => setShow(false)}
             />
         </div>
     );

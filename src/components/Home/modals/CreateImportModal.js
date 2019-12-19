@@ -1,14 +1,31 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import {saveImportProduct} from '../../../actions/ImporterAction';
 
 const CreateImportModal = (props) => {
-    const { show, handleClose, handleSave } = props;
+    const { show, handleClose } = props;
     const [importerName, setImporterName] = useState('');
     const [productName, setProductName] = useState('');
     const [productPrice, setProductPrice] = useState('');
     const [productAmount, setProductAmount] = useState('');
     const [type, setType] = useState('');
-    const [create, setCreateTime] = useState('');
+
+    const handleSave = async (e) => {
+      var importProduct ={
+          "importerName": importerName,
+          "update_at": new Date().toLocaleString(),
+          "exporterName": "",
+          "product_price": productPrice,
+          "create_at": new Date().toLocaleString(),
+          "type": type,
+          "product_name": productName,
+          "product_amount": productAmount
+      }
+      saveImportProduct(importProduct);
+
+      handleClose();
+    }
+
     return (
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
@@ -43,12 +60,6 @@ const CreateImportModal = (props) => {
                 <div className="form-group col-md-12">
                 <label>Type:</label>
                   <input type="text" onChange={(e) => setType(e.target.value)} className="form-control" />
-                </div>
-            </div>
-            <div className="row">
-                <div className="form-group col-md-12">
-                <label>Create Time:</label>
-                  <input type="date" onChange={(e) => setCreateTime(e.target.value)} className="form-control" />
                 </div>
             </div>
           </Modal.Body>
