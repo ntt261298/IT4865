@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import DataTable from './DataTable';
 import CreateImportModal from './modals/CreateImportModal';
 import plus from '../../images/plus.svg';
-import {getImportProducts} from '../../../src/actions/ImporterAction'
 
 function Importer() {
     const [show, setShow] = useState(false);
@@ -13,7 +12,18 @@ function Importer() {
     // .catch(err=>{
     //     console.log(err);
     // })
-    
+
+    useEffect(() => {
+      (async function(){
+        const res = await fetch('http://127.0.0.1:5000/getProducts/IMPORTER', {
+          headers: {
+            authorization: 'eyJhbGciOiJIUzUxMiIsImlhdCI6MTU3NjgzNjk4NiwiZXhwIjoxNTc2ODQwNTg2fQ.eyJ1c2VybmFtZSI6InN0cmluZyJ9.XjiEFPHI3Cas_g9YvgWdsZdgxOg7y9xbmcbXHaChmJZk6W7S5pO90f7uvR82sbInSs6gBocEsBBxn4NoLAf6CQ',
+          }
+        });
+        console.log(res);
+      })();
+    }, []);
+
 
     const listImport = {
         columns: [
@@ -124,10 +134,10 @@ function Importer() {
                 </div>
             </div>
             <hr />
-            <DataTable 
-                
+            <DataTable
+
             />
-            <CreateImportModal 
+            <CreateImportModal
                 show={show}
                 handleClose={() => setShow(false)}
             />

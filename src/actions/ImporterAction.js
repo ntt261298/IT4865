@@ -24,9 +24,10 @@ export const getImportProducts = async (type) => {
     // .catch(err=>{
     //   console.log(err);
     // })
-    
+
     // return await result.json();
 }
+
 
 export const saveImportProduct = async (importProduct) =>{
   console.log(importProduct);
