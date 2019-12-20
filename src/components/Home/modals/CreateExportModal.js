@@ -2,7 +2,8 @@ import React from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 
 const CreateExportModal = (props) => {
-    const { show, handleClose, handleSave } = props;
+
+    const { datas, show, handleClose, handleSave, handleChange} = props;
     return (
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
@@ -11,36 +12,35 @@ const CreateExportModal = (props) => {
           <Modal.Body>
             
             <Form>
-                <Form.Group as={Row} controlId="formPlaintextEmail">
+                <Form.Group as={Row}>
                     <Form.Label column sm="2">
                     Product
                     </Form.Label>
                     <Col sm="10">
-                    <Form.Control as="select" name="product_name" onChange={props.handleChange}>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                    <Form.Control as="select" name="product_name" onChange={handleChange}>
+                        <option>Select Product</option>
+                        {datas.map(function(data, i){
+                            return <option value={i} key={i}>{data.product_name}</option>;
+                        })}
                     </Form.Control>
                     </Col>
                 </Form.Group>
 
-                <Form.Group as={Row} controlId="formPlaintextPassword">
+                <Form.Group as={Row}>
                     <Form.Label column sm="2">
                     Price
                     </Form.Label>
                     <Col sm="10">
-                    <Form.Control type="text" name="product_price" onChange={props.handleChange} />
+                    <Form.Control type="text" name="product_price" onChange={handleChange} />
                     </Col>
                 </Form.Group>
 
-                <Form.Group as={Row} controlId="formPlaintextPassword">
+                <Form.Group as={Row}>
                     <Form.Label column sm="2">
                     Amount
                     </Form.Label>
                     <Col sm="10">
-                    <Form.Control type="text" name="product_amount" onChange={props.handleChange} />
+                    <Form.Control type="text" name="product_amount" onChange={handleChange} />
                     </Col>
                 </Form.Group>
             </Form>
