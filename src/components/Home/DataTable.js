@@ -55,8 +55,6 @@ const DataTable = (props) => {
   const [rows, setRows] = useState([]);
   
   useEffect(() => {
-    console.log(props.data)
-
     setRows(props.data.map((p) => {
       return {
         importer_name : p.importerName,

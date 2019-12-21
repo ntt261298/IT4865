@@ -8,50 +8,39 @@ class Exporter extends React.Component {
         super(props)
         this.urls = ['http://0.0.0.0:5000/getProducts/IMPORTER', 'http://0.0.0.0:5000/getProducts/EXPORTER']
         this.postUrl = 'http://0.0.0.0:5000/createProduct'
+        this.exporterName = "thang"
 
-        this.token = "eyJhbGciOiJIUzUxMiIsImlhdCI6MTU3Njg1NTcxOSwiZXhwIjoxNTc2ODU5MzE5fQ.eyJ1c2VybmFtZSI6InRlc3QifQ.A1jz4CmZNXRqUCj3Q7JQxGZ1m55r49SkoIC8_nr_2EnNRUsstFXaJUAWUzE_OhcKlAwq3KHIsoI3F0_F1sQh8Q"
+        this.token = "eyJhbGciOiJIUzUxMiIsImlhdCI6MTU3Njg5MjgxNCwiZXhwIjoxNTc2ODk2NDE0fQ.eyJ1c2VybmFtZSI6InRoYW5nIn0.rFkLgtk7rZq8nOlfQ5WM7CnxhM2gv_7OahxqnNqMkTK1G-GqY6cutna0tVmM8gr4sWtztWsebnGvMg7tbUVO4Q"
 
         this.state = {
             show : false,
-            product : {
-                exporterName: "thang",
-                update_at: "",
-                product_price: "",
-                create_at: "",
-                type: "EXPORTER",
-                importerName: "",
-                product_name: "",
-                product_amount: ""
-            },
             listProduct: [],
             importProduct: [],
         }
     }
 
     getListProduct(){
-        this.setState({listProduct: []})
-        fetch(this.urls[0], {
-            headers: {
-                "authorization": this.token
-            }
-        }).then(res => res.json())
-        .then(data => this.setState({listProduct: this.state.listProduct.concat(data), importProduct: data}))
-        
 
-        fetch(this.urls[1], {
-            headers: {
-                "authorization": this.token
-            }
-        }).then(res => res.json())
-        .then(data => this.setState({listProduct: this.state.listProduct.concat(data)})) 
+        Promise.all(
+            this.urls.map(url =>
+                fetch(url, {headers: {"authorization": this.token}})
+                    .then(res => res.json())
+            )
+        ).then(data => {
+            this.setState({
+                listProduct: [].concat(...data)
+            });
+            this.setState({
+                importProduct: this.state.listProduct.filter(p => p.type==="IMPORTER")
+            })
+        });
     }
 
-    handleSave = () => {
+    handleSave = (product) => {
         this.setState({
             show: false
         })
 
-        console.log(this.state.product)
         fetch(this.postUrl, {
             method: 'POST',
             headers: {
@@ -59,36 +48,10 @@ class Exporter extends React.Component {
                 "Content-Type": "application/json",
                 "authorization": this.token
             },
-            body: JSON.stringify(this.state.product)
-        }).then(res => console.log(res))
+            body: JSON.stringify(product)
+        }).then(res => this.getListProduct())
+        
     }
-
-    handleChange = (event) => {
-        console.log('handchange')
-        let nam = event.target.name;
-        let val = event.target.value;
-        if(nam === 'product_name'){
-            const product = this.state.importProduct[val]
-            this.setState({
-                product: {
-                    ...this.state.product,
-                    importerName: product.importerName,
-                    create_at: product.create_at,
-                    update_at: new Date().toLocaleDateString("en-US"),
-                    product_name: product.product_name
-                }
-            })
-        }
-        else{
-            this.setState({
-                product: {
-                    ...this.state.product,
-                    [nam]: val
-                }
-            })
-        }      
-    }
-
 
     render(){
         return (
@@ -109,6 +72,7 @@ class Exporter extends React.Component {
                     handleClose={() => this.setState({show: false})}
                     handleSave={this.handleSave}
                     handleChange={this.handleChange}
+                    exporterName={this.exporterName}
                 />
             </div>
         );
@@ -116,7 +80,6 @@ class Exporter extends React.Component {
 
     componentDidMount() {
         this.getListProduct()
-        console.log(this.state.listProduct)
     }
 }
 

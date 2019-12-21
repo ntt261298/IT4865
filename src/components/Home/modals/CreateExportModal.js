@@ -1,9 +1,48 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 
 const CreateExportModal = (props) => {
 
-    const { datas, show, handleClose, handleSave, handleChange} = props;
+    const initialProduct = {
+      exporterName: props.exporterName,
+      update_at: "",
+      product_price: "",
+      create_at: "",
+      type: "EXPORTER",
+      importerName: "",
+      product_name: "",
+      product_amount: ""
+    }
+
+    const [product, setProduct] = useState(initialProduct)
+
+    const handleChange = (event) => {
+      console.log('handchange')
+      let nam = event.target.name;
+      let val = event.target.value;
+      if(nam === 'product_name'){
+          const product = datas[val]
+          setProduct(
+              {
+                ...product,
+                importerName: product.importerName,
+                create_at: product.create_at,
+                update_at: new Date().toLocaleDateString("en-US"),
+                product_name: product.product_name
+              }
+          )
+      }
+      else{
+          setProduct(
+              {
+                ...product,
+                [nam]: val
+              }
+          )
+      }      
+    }
+
+    const { datas, show, handleClose, handleSave, exporterName} = props;
     return (
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
@@ -49,12 +88,16 @@ const CreateExportModal = (props) => {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleSave}>
+            <Button variant="primary" onClick={() => handleSave(product)}>
               Save Changes
             </Button>
           </Modal.Footer>
         </Modal>
     );
+
+    
+
+    
   }
   
 export default CreateExportModal;
