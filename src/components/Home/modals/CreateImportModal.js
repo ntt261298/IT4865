@@ -1,29 +1,29 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import {saveImportProduct} from '../../../actions/ImporterAction';
+import { loadUsername } from '../../../utils/localStorage';
 
 const CreateImportModal = (props) => {
-    const { show, handleClose } = props;
-    const [importerName, setImporterName] = useState('');
+    const { show, handleClose} = props;
+    const [setImporterName] = useState('');
     const [productName, setProductName] = useState('');
     const [productPrice, setProductPrice] = useState('');
     const [productAmount, setProductAmount] = useState('');
-    const [type, setType] = useState('');
 
     const handleSave = async (e) => {
       var importProduct ={
-          "importerName": importerName,
+          "importerName": loadUsername(),
           "update_at": new Date().toLocaleString(),
-          "exporterName": "",
+          "exporterName": "none",
           "product_price": productPrice,
           "create_at": new Date().toLocaleString(),
-          "type": type,
+          "type": "import",
           "product_name": productName,
           "product_amount": productAmount
       }
       saveImportProduct(importProduct);
-
       handleClose();
+      // window.location.replace('http://localhost:3000/home');
     }
 
     return (
@@ -35,7 +35,7 @@ const CreateImportModal = (props) => {
             <div className="row">
               <div className="form-group col-md-12">
                 <label>Importer Name:</label>
-                <input type="text" onChange={(e) => setImporterName(e.target.value)} className="form-control" />
+                <input type="text" disabled onChange={(e) => setImporterName(e.target.value)} value={loadUsername()} className="form-control" />
                   </div>
             </div>
             <div className="row">
@@ -54,12 +54,6 @@ const CreateImportModal = (props) => {
                 <div className="form-group col-md-12">
                 <label>Product Amount:</label>
                   <input type="text" onChange={(e) => setProductAmount(e.target.value)} className="form-control" />
-                </div>
-            </div>
-            <div className="row">
-                <div className="form-group col-md-12">
-                <label>Type:</label>
-                  <input type="text" onChange={(e) => setType(e.target.value)} className="form-control" />
                 </div>
             </div>
           </Modal.Body>

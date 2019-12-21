@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { saveToken, saveRole } from '../utils/localStorage';
+import { saveToken, saveRole, saveUsername } from '../utils/localStorage';
 
 function Login() {
     const [username, setUsername] = useState('');
@@ -17,6 +17,7 @@ function Login() {
             setError(data['details']);
             return;
         }
+        saveUsername(username);
         saveToken(data['authorization']);
         saveRole(data['role']);
         window.location.replace('http://localhost:3000/home');

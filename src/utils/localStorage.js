@@ -19,6 +19,27 @@ export const saveToken = (state) => {
   }
 };
 
+export const saveUsername = (state) => {
+  try {
+    const seriallizedState = JSON.stringify(state);
+    localStorage.setItem('username', seriallizedState);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const loadUsername = () => {
+  try {
+    const seriallizedState = localStorage.getItem('username');
+    if (seriallizedState === null) {
+      return undefined;
+    }
+    return JSON.parse(seriallizedState);
+  } catch (err) {
+    return undefined;
+  }
+};
+
 export const removeToken = (state) => {
   try {
     const seriallizedState = JSON.stringify(state);
