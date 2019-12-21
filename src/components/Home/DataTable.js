@@ -53,7 +53,7 @@ const DataTable = (props) => {
     }
   ]
   const [rows, setRows] = useState([]);
-  
+
   useEffect(() => {
     setRows(props.data.map((p) => {
       return {
@@ -67,7 +67,7 @@ const DataTable = (props) => {
         update_at: p.update_at
       }
     }))
-    
+
   }, [props.data])
 
   return (

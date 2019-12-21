@@ -6,7 +6,6 @@ import Exporter from './Exporter';
 import Warehouse from './Warehouse';
 
 function Home() {
-    // Change role here for testing
     const [role, setRole] = useState(loadRole());
 
     return (

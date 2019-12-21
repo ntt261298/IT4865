@@ -21,7 +21,7 @@ class Importer extends React.Component {
       data.json().then(res=>{
         console.log(res.length)
         this.setState({
-          listProduct: [].concat(...res).filter(p=> p.importerName===this.username)
+          listProduct: [].concat(...res).filter(p=> p.importerName==='nguyennhuy')
         });
       })
     })
