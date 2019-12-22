@@ -21,29 +21,25 @@ class Warehouse extends Component {
 
     componentDidMount() {
         axios({
-            method: 'GET',
-            url: 'http://127.0.0.1:5000/getProducts/IMPORT',
-            headers: {
-                authorization: loadToken()
-            }
+            method: 'POST',
+            url: 'http://178.128.217.110:8302/quanLyXuatNhapHang/elasticsearch',
+            data: JSON.stringify({size: 100})
         }).then(res => {
             console.log(res);
             this.setState({
-                listImport : res.data
+                listImport : [].concat(...res.data).filter(p=> p.type === 'import')
             })
         }).catch(err => {
             console.log(err);
         });
         axios({
-            method: 'GET',
-            url: 'http://127.0.0.1:5000/getProducts/EXPORT',
-            headers: {
-                authorization: loadToken()
-            }
+            method: 'POST',
+            url: 'http://178.128.217.110:8302/quanLyXuatNhapHang/elasticsearch',
+            data: JSON.stringify({size: 100})
         }).then(res => {
             console.log(res);
             this.setState({
-                listExport : res.data
+                listExport : [].concat(...res.data).filter(p=> p.type === 'export')
             })
         }).catch(err => {
             console.log(err);

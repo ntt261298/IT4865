@@ -8,7 +8,7 @@ const CreateExportModal = (props) => {
       update_at: "",
       product_price: "",
       create_at: "",
-      type: "EXPORTER",
+      type: "export",
       importerName: "",
       product_name: "",
       product_amount: ""
@@ -39,7 +39,7 @@ const CreateExportModal = (props) => {
                 [nam]: val
               }
           )
-      }      
+      }
     }
 
     const { datas, show, handleClose, handleSave, exporterName} = props;
@@ -49,7 +49,7 @@ const CreateExportModal = (props) => {
             <Modal.Title>Modal heading</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            
+
             <Form>
                 <Form.Group as={Row}>
                     <Form.Label column sm="2">
@@ -95,9 +95,9 @@ const CreateExportModal = (props) => {
         </Modal>
     );
 
-    
 
-    
+
+
   }
-  
+
 export default CreateExportModal;

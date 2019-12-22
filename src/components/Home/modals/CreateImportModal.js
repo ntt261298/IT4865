@@ -5,7 +5,7 @@ import {saveImportProduct} from '../../../actions/ImporterAction';
 import { loadUsername } from '../../../utils/localStorage';
 
 const CreateImportModal = (props) => {
-    const { show, handleClose} = props;
+    const { show, handleClose, getListProduct } = props;
     const [setImporterName] = useState('');
     const [productName, setProductName] = useState('');
     const [productPrice, setProductPrice] = useState('');
@@ -15,7 +15,7 @@ const CreateImportModal = (props) => {
       var importProduct ={
           "importerName": loadUsername(),
           "update_at": new Date().toLocaleString(),
-          "exporterName": "none",
+          "exporterName": "null",
           "product_price": productPrice,
           "create_at": new Date().toLocaleString(),
           "type": "import",
@@ -24,6 +24,7 @@ const CreateImportModal = (props) => {
       }
       saveImportProduct(importProduct);
       successMessage('Create successfully');
+      getListProduct();
       handleClose();
       // window.location.replace('http://localhost:3000/home');
     }

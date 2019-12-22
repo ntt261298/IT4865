@@ -1,9 +1,11 @@
 import {loadToken} from '../utils/localStorage';
 export const getImportProducts = async (type) => {
-  const res = await fetch('http://127.0.0.1:5000/getProducts/'+type, {
-    headers: {
-      authorization: loadToken(),
-    }
+  const res = await fetch('http://178.128.217.110:8302/quanLyXuatNhapHang/elasticsearch', {
+    method: 'POST',
+    body: JSON.stringify({size: 100}),
+    // headers: {
+    //   authorization: loadToken(),
+    // }
   });
   return res;
 }
