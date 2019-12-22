@@ -2,20 +2,22 @@ import React from 'react';
 import DataTable from './DataTable';
 import CreateExportModal from './modals/CreateExportModal';
 import plus from '../../images/plus.svg';
+import { loadToken, loadUsername } from '../../utils/localStorage';
 
 class Exporter extends React.Component {
     constructor(props){
         super(props)
         this.urls = ['http://0.0.0.0:5000/getProducts/IMPORTER', 'http://0.0.0.0:5000/getProducts/EXPORTER']
         this.postUrl = 'http://0.0.0.0:5000/createProduct'
-        this.exporterName = "thang"
+        this.exporterName = loadUsername();
 
-        this.token = "eyJhbGciOiJIUzUxMiIsImlhdCI6MTU3Njg5MjgxNCwiZXhwIjoxNTc2ODk2NDE0fQ.eyJ1c2VybmFtZSI6InRoYW5nIn0.rFkLgtk7rZq8nOlfQ5WM7CnxhM2gv_7OahxqnNqMkTK1G-GqY6cutna0tVmM8gr4sWtztWsebnGvMg7tbUVO4Q"
+        this.token = loadToken();
 
         this.state = {
             show : false,
             listProduct: [],
             importProduct: [],
+            exportProduct: [],
         }
     }
 
@@ -31,7 +33,8 @@ class Exporter extends React.Component {
                 listProduct: [].concat(...data)
             });
             this.setState({
-                importProduct: this.state.listProduct.filter(p => p.type==="IMPORTER")
+                importProduct: this.state.listProduct.filter(p => p.type==="IMPORTER"),
+                exportProduct: this.state.listProduct.filter(p => p.type==="EXPORTER" && p.exporterName===loadUsername())
             })
         });
     }
@@ -50,12 +53,12 @@ class Exporter extends React.Component {
             },
             body: JSON.stringify(product)
         }).then(res => this.getListProduct())
-        
+
     }
 
     render(){
         return (
-            <div className="exporter">
+            <div className="main">
                 <div className="row">
                     <div className="col-6">
                         <h2>Export History</h2>
@@ -65,9 +68,9 @@ class Exporter extends React.Component {
                     </div>
                 </div>
                 <hr />
-                <DataTable data={this.state.listProduct}/>
+                <DataTable data={this.state.exportProduct}/>
                 <CreateExportModal
-                    datas={this.state.importProduct} 
+                    datas={this.state.importProduct}
                     show={this.state.show}
                     handleClose={() => this.setState({show: false})}
                     handleSave={this.handleSave}

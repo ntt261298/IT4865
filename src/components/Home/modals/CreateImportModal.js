@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import {saveImportProduct} from '../../../actions/ImporterAction';
 import { loadUsername } from '../../../utils/localStorage';
@@ -68,5 +68,5 @@ const CreateImportModal = (props) => {
         </Modal>
     );
   }
-  
+
 export default CreateImportModal;

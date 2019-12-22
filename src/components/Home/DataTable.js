@@ -57,14 +57,14 @@ const DataTable = (props) => {
   useEffect(() => {
     setRows(props.data.map((p) => {
       return {
-        importer_name : p.importerName,
-        product_name : p.product_name,
-        product_amount : p.product_amount,
-        product_price: p.product_price,
-        create_at: p.create_at,
-        type: p.type,
-        exporter_name: p.exporterName,
-        update_at: p.update_at
+        importer_name : p.importerName ||'null',
+        product_name : p.product_name || 'null',
+        product_amount : p.product_amount || 'null',
+        product_price: p.product_price || 'null',
+        create_at: p.create_at || 'null',
+        type: p.type || 'null',
+        exporter_name: p.exporterName || 'null',
+        update_at: p.update_at || 'null',
       }
     }))
 
