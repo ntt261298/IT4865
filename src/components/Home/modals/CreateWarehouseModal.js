@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import { errMessage, successMessage } from '../../../utils/message';
 import {createUser} from '../../../actions/WarehouseAction';
 
 
@@ -10,16 +11,17 @@ const CreateWarehouseModal = (props) => {
     const [txtRole, setRole] = useState('');
 
     const handleSave = async (e) => {
-      var user = {
+      let user = {
           username: txtUsername,
           password: txtPassword,
           role: txtRole
-      }
-      createUser(user);
-      handleClose();
-    }
+      };
+      await createUser(user);
+      successMessage('Create user successfully');
 
-   
+      handleClose();
+    };
+
     return (
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
@@ -49,7 +51,7 @@ const CreateWarehouseModal = (props) => {
                     </select>
                 </div>
             </div>
-        
+
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
@@ -62,5 +64,5 @@ const CreateWarehouseModal = (props) => {
         </Modal>
     );
   }
-  
+
 export default CreateWarehouseModal;

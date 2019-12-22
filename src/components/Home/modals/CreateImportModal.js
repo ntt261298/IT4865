@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import { errMessage, successMessage } from '../../../utils/message';
 import {saveImportProduct} from '../../../actions/ImporterAction';
 import { loadUsername } from '../../../utils/localStorage';
 
@@ -22,6 +23,7 @@ const CreateImportModal = (props) => {
           "product_amount": productAmount
       }
       saveImportProduct(importProduct);
+      successMessage('Create successfully');
       handleClose();
       // window.location.replace('http://localhost:3000/home');
     }

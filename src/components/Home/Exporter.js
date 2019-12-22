@@ -2,6 +2,7 @@ import React from 'react';
 import DataTable from './DataTable';
 import CreateExportModal from './modals/CreateExportModal';
 import plus from '../../images/plus.svg';
+import { errMessage, successMessage } from '../../utils/message';
 import { loadToken, loadUsername } from '../../utils/localStorage';
 
 class Exporter extends React.Component {
@@ -52,7 +53,10 @@ class Exporter extends React.Component {
                 "authorization": this.token
             },
             body: JSON.stringify(product)
-        }).then(res => this.getListProduct())
+        }).then(res => {
+            this.getListProduct();
+            successMessage('Create successfully')
+        })
 
     }
 

@@ -6,10 +6,10 @@ import { loadToken, loadUsername } from '../../utils/localStorage';
 import axios from 'axios'
 
 
-class Warehouse extends Component {  
+class Warehouse extends Component {
     // const [show, setShow] = useState(false);
 
- 
+
     constructor(props) {
         super(props);
         this.state = {
@@ -55,14 +55,14 @@ class Warehouse extends Component {
         var {listImport,listExport} = this.state;
         console.log(listExport);
         return (
-            <div className="warehouse">
-    
-                <CreateWarehouseModal 
+            <div className="main">
+
+                <CreateWarehouseModal
                     show={this.state.show}
                     handleClose={() => this.setState({show: false})}
                     handleSave={() => this.setState({show: false})}
                 />
-        
+
                 <div className="importer">
                     <div className="row">
                         <div className="col-6">
@@ -73,11 +73,11 @@ class Warehouse extends Component {
                     </div>
                     </div>
                     <hr />
-                    <DataTable 
+                    <DataTable
                         data={listImport}
                     />
                 </div>
-    
+
                 <div className="importer">
                     <div className="row">
                         <div className="col-6">
@@ -85,7 +85,7 @@ class Warehouse extends Component {
                         </div>
                     </div>
                     <hr />
-                    <DataTable 
+                    <DataTable
                         data={listExport}
                     />
                 </div>
